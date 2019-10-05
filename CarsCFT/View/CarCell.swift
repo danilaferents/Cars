@@ -25,14 +25,17 @@ class CarCell: UICollectionViewCell {
     
     func configureCell (car: Car)  {
         
-        manufactureLbl.text = car.manufacturer
-        modelLbl.text = car.model
-        bodyLbl.text = car.body
-        yearLbl.text = String(car.year)
+        manufactureLbl.text = "\(car.manufacturer)"
+        modelLbl.text = "Model: \(car.model)"
+        bodyLbl.text = "Body: \(car.body)"
+        yearLbl.text = "Year: \(String(car.year))"
         
         
         if let url = URL(string: car.imageUrl) {
-            imageView.kf.setImage(with: url)
+            let placeholder = UIImage(named: "placeholder")
+            let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.1))]
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: url, placeholder: placeholder, options: options)
         }
         
     }

@@ -29,7 +29,7 @@ struct Car {
         model = data["model"] as? String ?? ""
         manufacturer = data["manufacturer"] as? String ?? ""
         body = data["body"] as? String ?? ""
-        year = data["year"] as? Int ?? 2000
+        year = data["year"] as? Int ?? 2001
         imageUrl = data["imageUrl"] as? String ?? ""
         id = data["id"] as? String ?? ""
     }
@@ -39,7 +39,7 @@ struct Car {
             "model":  car.model,
             "manufacturer": car.manufacturer,
             "body": car.body,
-            "yaer": car.year,
+            "year": Int(car.year),
             "imageUrl": car.imageUrl,
             "id": car.id
         ] as [String: Any]

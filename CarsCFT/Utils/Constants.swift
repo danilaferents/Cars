@@ -29,7 +29,11 @@ struct Identifiers {
     
 }
 struct Segues {
-    static let toCar = "toCar"
+    static let toAddCar = "toAddCar"
     static let toEditCar = "toEditCar"
-//    static let toAddEditCar = "toAddEditCar
+    //    static let toAddEditCar = "toAddEditCar
 }
+struct Buttnos {
+    static let newCarBtn = "carBtn"
+}
+

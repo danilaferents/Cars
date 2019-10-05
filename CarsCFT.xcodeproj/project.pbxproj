@@ -20,6 +20,9 @@
 		83AD2C1F2347F7D000917601 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83AD2C1E2347F7D000917601 /* Main.storyboard */; };
 		83AD2C212347FBF500917601 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83AD2C202347FBF500917601 /* GoogleService-Info.plist */; };
 		83AD2C222347FDBF00917601 /* CarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83AD2C1C2347F7B700917601 /* CarCell.xib */; };
+		83F5F2842349387100D04314 /* AddCarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5F2832349387100D04314 /* AddCarVC.swift */; };
+		83F5F28623493CFC00D04314 /* EditCarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5F28523493CFC00D04314 /* EditCarVC.swift */; };
+		83F5F2882349454500D04314 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5F2872349454500D04314 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,9 @@
 		83AD2C1C2347F7B700917601 /* CarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CarCell.xib; path = CarsCFT/Xibs/CarCell.xib; sourceTree = SOURCE_ROOT; };
 		83AD2C1E2347F7D000917601 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		83AD2C202347FBF500917601 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		83F5F2832349387100D04314 /* AddCarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarVC.swift; sourceTree = "<group>"; };
+		83F5F28523493CFC00D04314 /* EditCarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCarVC.swift; sourceTree = "<group>"; };
+		83F5F2872349454500D04314 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4886EDDBF16520C593E1F68 /* Pods-CarsCFT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarsCFT.release.xcconfig"; path = "Target Support Files/Pods-CarsCFT/Pods-CarsCFT.release.xcconfig"; sourceTree = "<group>"; };
 		C74F2CC350E7A042042B42FA /* Pods_CarsCFT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarsCFT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6B1ABDBD17731E77976CC7B /* Pods-CarsCFT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarsCFT.debug.xcconfig"; path = "Target Support Files/Pods-CarsCFT/Pods-CarsCFT.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				83AD2C102347F70900917601 /* HomeVC.swift */,
+				83F5F2832349387100D04314 /* AddCarVC.swift */,
+				83F5F28523493CFC00D04314 /* EditCarVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -144,6 +152,7 @@
 			children = (
 				83AD2BF12347F61500917601 /* AppDelegate.swift */,
 				83AD2BF32347F61500917601 /* SceneDelegate.swift */,
+				83F5F2872349454500D04314 /* Extensions.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -246,6 +255,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CarsCFT/Pods-CarsCFT-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
@@ -259,6 +269,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
@@ -302,8 +313,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				83AD2C152347F74000917601 /* RoundedViews.swift in Sources */,
+				83F5F2842349387100D04314 /* AddCarVC.swift in Sources */,
+				83F5F28623493CFC00D04314 /* EditCarVC.swift in Sources */,
 				83AD2BF22347F61500917601 /* AppDelegate.swift in Sources */,
 				83AD2C112347F70900917601 /* HomeVC.swift in Sources */,
+				83F5F2882349454500D04314 /* Extensions.swift in Sources */,
 				83AD2C132347F72500917601 /* Car.swift in Sources */,
 				83AD2BF42347F61500917601 /* SceneDelegate.swift in Sources */,
 				83AD2C1A2347F78500917601 /* CarCell.swift in Sources */,

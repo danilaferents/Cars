@@ -21,10 +21,26 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         db = Firestore.firestore()
         setUpCollectionView()
-        setCarsListener()
-
+        collectionView.isEdi
+        let addCarBtn = UIBarButtonItem(image: UIImage(named: Buttnos.newCarBtn), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(addCar))
+        addCarBtn.tintColor = .white
+    
+        
+        navigationItem.rightBarButtonItem = addCarBtn
+        
+        navigationController?.navigationBar.barTintColor = AppColors.Blue
     }
     
+    @objc func addCar() {
+        performSegue(withIdentifier: Segues.toAddCar, sender: nil)
+    }
+    @IBAction func deleteCar(_ sender: Any) {
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setCarsListener()
+    }
     func setUpCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -112,5 +128,23 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         return UICollectionViewCell()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCar = Cars[indexPath.row]
+        performSegue(withIdentifier: Segues.toEditCar, sender: nil)
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Segues.toEditCar {
+            if let dest = segue.destination as? EditCarVC {
+                dest.currCar = selectedCar
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width
+        let cellWidth = (width - 30) / 2
+        let cellHieght = cellWidth * 1.5
+        return CGSize(width: cellWidth, height: cellHieght)
+    }
 }
