@@ -2,7 +2,15 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
+    func deleteCell(id: String) {
+//        Cars.removeAll { (car) -> Bool in
+//            return car.id == id
+//        }
+        
+        db.collection("Cars").document(id).delete()
+    }
+    
     //Outlets
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -21,7 +29,6 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         db = Firestore.firestore()
         setUpCollectionView()
-        collectionView.isEdi
         let addCarBtn = UIBarButtonItem(image: UIImage(named: Buttnos.newCarBtn), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(addCar))
         addCarBtn.tintColor = .white
     
@@ -33,9 +40,6 @@ class HomeVC: UIViewController {
     
     @objc func addCar() {
         performSegue(withIdentifier: Segues.toAddCar, sender: nil)
-    }
-    @IBAction func deleteCar(_ sender: Any) {
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,7 +126,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.CarCell, for: indexPath) as? CarCell {
-            cell.configureCell(car: Cars[indexPath.row])
+            cell.configureCell(car: Cars[indexPath.row], delegate: self)
             return cell
         }
         return UICollectionViewCell()

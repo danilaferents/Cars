@@ -9,6 +9,9 @@
 import UIKit
 import Kingfisher
 
+protocol DeleteCollectionViewCellDelegate {
+    func deleteCell(id: String)
+}
 class CarCell: UICollectionViewCell {
     //Outlets
     @IBOutlet weak var manufactureLbl: UILabel!
@@ -17,13 +20,21 @@ class CarCell: UICollectionViewCell {
     @IBOutlet weak var yearLbl: UILabel!
     @IBOutlet weak var imageView: RoundedImageView!
     
+    var delegate: DeleteCollectionViewCellDelegate!
+    var id: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+    @IBAction func deleteItemClicked(_ sender: Any) {
+        delegate.deleteCell(id: self.id)
+    }
     
-    func configureCell (car: Car)  {
+    func configureCell (car: Car, delegate: DeleteCollectionViewCellDelegate)  {
+        
+        self.delegate = delegate
+        self.id = car.id
         
         manufactureLbl.text = "\(car.manufacturer)"
         modelLbl.text = "Model: \(car.model)"
