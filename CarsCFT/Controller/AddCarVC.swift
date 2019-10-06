@@ -19,10 +19,11 @@ class AddCarVC: UIViewController {
     @IBOutlet weak var yearTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var addCarBtn: UIButton!
     
     
     //Variables
-    var currCar: Car!
+//    var currCar: Car!
     var manufacturer: String!
     var model: String!
     var body: String!
@@ -48,6 +49,7 @@ class AddCarVC: UIViewController {
     
     //Add car button clicked
     @IBAction func addCarClicked(_ sender: Any) {
+        addCarBtn.isEnabled = false
         uploadImageAndDocument()
     }
     
@@ -56,6 +58,7 @@ class AddCarVC: UIViewController {
         guard let image = imageView.image, let manufacturer = manufacturerTextField.text, let model = modelTextField.text, let body = bodyTextField.text, let year = yearTextField.text, manufacturer.isNotEmpty, model.isNotEmpty, body.isNotEmpty, year.isNotEmpty else {
             simpleAlert(title: "Error!", msg: "Missing necessary information!")
             self.activityIndicator.stopAnimating()
+            addCarBtn.isEnabled = true
             return
         }
         
@@ -87,13 +90,14 @@ class AddCarVC: UIViewController {
                 self.uploadDocument(url: url.absoluteString)
             }
             self.activityIndicator.stopAnimating()
+            self.addCarBtn.isEnabled = true
         }
     }
     
     func uploadDocument(url: String) {
         var docRef : DocumentReference!
-        
-        var car = Car.init(model: model, manufacturer: manufacturer, body: body, year: year, imageUrl: url, id: "")
+        year = (year == nil) ? 2000 : year
+        var car = Car.init(model: self.model, manufacturer: self.manufacturer, body: self.body, year: self.year, imageUrl: url, id: "")
         
         docRef = Firestore.firestore().collection("Cars").document()
         car.id = docRef.documentID

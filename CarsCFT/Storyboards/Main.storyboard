@@ -129,7 +129,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.39380136129999999" green="0.43339109419999999" blue="0.51765877010000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to add Image: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dg3-CI-xV1">
                                 <rect key="frame" x="10" y="379" width="394" height="40"/>
@@ -316,7 +316,7 @@
                                                 <rect key="frame" x="205" y="0.0" width="189" height="34"/>
                                                 <color key="tintColor" red="0.39380136129999999" green="0.43339109419999999" blue="0.51765877010000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -363,6 +363,7 @@
                     <navigationItem key="navigationItem" id="Rb8-wX-PPR"/>
                     <connections>
                         <outlet property="activityIndicator" destination="wSe-G3-j9a" id="rg4-Eg-P3z"/>
+                        <outlet property="addCarBtn" destination="JOy-4C-waP" id="Kxl-YA-frm"/>
                         <outlet property="bodyTextField" destination="7hu-Pj-MVr" id="gNm-x0-SHm"/>
                         <outlet property="imageView" destination="cwX-zw-vtl" id="Eln-4z-RNJ"/>
                         <outlet property="manufacturerTextField" destination="9vs-06-CL5" id="fre-ts-7dW"/>
