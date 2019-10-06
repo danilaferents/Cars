@@ -18,8 +18,8 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
     //Variables
     var Cars = [Car]()
     var selectedCar: Car!
-    var db: Firestore!
-    var listener: ListenerRegistration!
+    var db: Firestore! //reference к базе данных
+    var listener: ListenerRegistration! //онлайн обновление изменений в удаленной базе
     
         
     
@@ -29,6 +29,9 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
         super.viewDidLoad()
         db = Firestore.firestore()
         setUpCollectionView()
+        
+        
+        //Add button for insertion of a new car
         let addCarBtn = UIBarButtonItem(image: UIImage(named: Buttnos.newCarBtn), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(addCar))
         addCarBtn.tintColor = .white
     
@@ -59,6 +62,7 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
         collectionView.reloadData()
     }
     
+    //Listener for database changes
     func setCarsListener() {
         
         listener = db.collection("Cars").addSnapshotListener({ (query, error) in
@@ -90,6 +94,7 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    //functions for speed change of a database handling
     func onDocumentAdded(change: DocumentChange, car: Car) {
         //We have only new index
         let newIndex = Int(change.newIndex)
@@ -132,11 +137,13 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         return UICollectionViewCell()
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCar = Cars[indexPath.row]
         performSegue(withIdentifier: Segues.toEditCar, sender: nil)
     }
     
+    //Transfer selected car into EditCarVC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Segues.toEditCar {
             if let dest = segue.destination as? EditCarVC {
@@ -145,6 +152,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         }
     }
     
+    //Compute Cell height and width
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         let cellWidth = (width - 30) / 2

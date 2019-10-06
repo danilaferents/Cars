@@ -41,14 +41,17 @@ class AddCarVC: UIViewController {
 
     }
     
+    //Image picker
     @objc func imageTapped(_tap: UIGestureRecognizer) {
         launchImagePicker()
     }
     
+    //Add car button clicked
     @IBAction func addCarClicked(_ sender: Any) {
         uploadImageAndDocument()
     }
     
+    //Upload new car info to Firebase
     func uploadImageAndDocument() {
         guard let image = imageView.image, let manufacturer = manufacturerTextField.text, let model = modelTextField.text, let body = bodyTextField.text, let year = yearTextField.text, manufacturer.isNotEmpty, model.isNotEmpty, body.isNotEmpty, year.isNotEmpty else {
             simpleAlert(title: "Error!", msg: "Missing necessary information!")

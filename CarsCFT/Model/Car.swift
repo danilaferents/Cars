@@ -8,14 +8,17 @@
 
 import Foundation
 
+//Model of a car instance
 struct Car {
-    var model: String
-    var manufacturer: String
-    var body: String
-    var year: Int
-    var imageUrl: String
-    var id: String
+    var model: String //Model of a car
+    var manufacturer: String  //Manufacturer of a car
+    var body: String  //Car's body
+    var year: Int //Year of Car's production
+    var imageUrl: String  //Car's image
+    var id: String  //Unique Car's id
     
+    
+    //Car's initialising
     init(model: String, manufacturer: String, body: String, year: Int,imageUrl: String, id: String) {
         self.model = model
         self.manufacturer = manufacturer
@@ -25,6 +28,8 @@ struct Car {
         self.id = id
     }
     
+    
+    //Car's initialising from JSON
     init(data: [String: Any]) {
         model = data["model"] as? String ?? ""
         manufacturer = data["manufacturer"] as? String ?? ""
@@ -34,6 +39,7 @@ struct Car {
         id = data["id"] as? String ?? ""
     }
     
+    //Convert car into JSON
     static func modelToData(car: Car) -> [String: Any] {
         let data = [
             "model":  car.model,

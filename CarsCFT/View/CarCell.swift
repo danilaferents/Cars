@@ -27,21 +27,25 @@ class CarCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    //Cell deletion
     @IBAction func deleteItemClicked(_ sender: Any) {
         delegate.deleteCell(id: self.id)
     }
     
     func configureCell (car: Car, delegate: DeleteCollectionViewCellDelegate)  {
         
-        self.delegate = delegate
-        self.id = car.id
+        self.delegate = delegate  //initialise delegate
+        self.id = car.id  //remember id of a document
         
+        //put values in labels
         manufactureLbl.text = "\(car.manufacturer)"
         modelLbl.text = "Model: \(car.model)"
         bodyLbl.text = "Body: \(car.body)"
         yearLbl.text = "Year: \(String(car.year))"
         
         
+        //image
         if let url = URL(string: car.imageUrl) {
             let placeholder = UIImage(named: "placeholder")
             let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.1))]

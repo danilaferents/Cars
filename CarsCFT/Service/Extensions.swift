@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 
+//extension for conveniece: check if string is emty
 extension String {
-    var isNotEmpty: Bool {
+    var isNotEmpty: Bool {  //initialisation of computed value
         return !isEmpty
     }
 }
 
-//extension to make function to error handling
+//extension for error handling
 extension UIViewController {
     func simpleAlert(title: String, msg: String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
