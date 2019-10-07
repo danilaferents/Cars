@@ -55,7 +55,23 @@ class EditCarVC: UIViewController {
     }
     
     func uploadImageAndDocument() {
-        guard let image = imageView.image, let manufacturer = manufacturerTextField.text, let model = modeltextField.text, let body = bodyTextField.text, let year = yearTextField.text, manufacturer.isNotEmpty, model.isNotEmpty, body.isNotEmpty, year.isNotEmpty else {
+        
+        guard let year = yearTextField.text, year.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty, Int(year) != nil, Int(year)! < 2020, Int(year)! > 1900 else {
+            simpleAlert(title: "Error!", msg: "Enter a valid year!")
+            self.activityIndicator.stopAnimating()
+            return
+        }
+        
+        
+        guard let image = imageView.image, let manufacturer = manufacturerTextField.text, let model = modeltextField.text, let body = bodyTextField.text, manufacturer.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty, model.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty, body.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty else {
             simpleAlert(title: "Error!", msg: "Missing necessary information!")
             self.activityIndicator.stopAnimating()
             return
@@ -94,7 +110,7 @@ class EditCarVC: UIViewController {
     
     func uploadDocument(url: String) {
         var docRef : DocumentReference!
-        
+        year = (year == nil) ? 2000 : year
         var car = Car.init(model: model, manufacturer: manufacturer, body: body, year: year, imageUrl: url, id: "")
         
         docRef = Firestore.firestore().collection("Cars").document(currCar.id)

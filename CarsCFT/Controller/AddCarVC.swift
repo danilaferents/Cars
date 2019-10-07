@@ -55,7 +55,22 @@ class AddCarVC: UIViewController {
     
     //Upload new car info to Firebase
     func uploadImageAndDocument() {
-        guard let image = imageView.image, let manufacturer = manufacturerTextField.text, let model = modelTextField.text, let body = bodyTextField.text, let year = yearTextField.text, manufacturer.isNotEmpty, model.isNotEmpty, body.isNotEmpty, year.isNotEmpty else {
+        
+        guard let year = yearTextField.text, year.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty, Int(year) != nil, Int(year)! < 2020, Int(year)! > 1900 else {
+            simpleAlert(title: "Error!", msg: "Enter a valid year!")
+            self.activityIndicator.stopAnimating()
+            return
+        }
+        
+        guard let image = imageView.image, let manufacturer = manufacturerTextField.text, let model = modelTextField.text, let body = bodyTextField.text,  manufacturer.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty, model.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty, body.filter({ (char) -> Bool in
+            return !char.isWhitespace && !char.isNewline
+        }).isNotEmpty else {
             simpleAlert(title: "Error!", msg: "Missing necessary information!")
             self.activityIndicator.stopAnimating()
             addCarBtn.isEnabled = true
