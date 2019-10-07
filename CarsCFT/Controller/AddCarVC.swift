@@ -20,6 +20,7 @@ class AddCarVC: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var addCarBtn: UIButton!
+    @IBOutlet weak var backImage: UIImageView!
     
     
     //Variables
@@ -29,9 +30,24 @@ class AddCarVC: UIViewController {
     var body: String!
     var year: Int!
     
+    //Function to make keyboard disappear while pressing Enter or another part of a view
+    func makeKeyboardsDisappearAttheendofediting() {
+        
+        manufacturerTextField.delegate = self
+        modelTextField.delegate = self
+        bodyTextField.delegate = self
+        yearTextField.delegate = self
+        
+        let gesture = UITapGestureRecognizer(target: view, action: #selector(UITextField.endEditing(_:)))
+        self.view.addGestureRecognizer(gesture)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        makeKeyboardsDisappearAttheendofediting()
+        
+        //Gesture recogniser for launchPicker
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_tap:)))
         tap.numberOfTapsRequired = 1
         imageView.isUserInteractionEnabled = true
@@ -56,6 +72,7 @@ class AddCarVC: UIViewController {
     //Upload new car info to Firebase
     func uploadImageAndDocument() {
         
+        //receive year of Cars manufacture
         guard let year = yearTextField.text, year.filter({ (char) -> Bool in
             return !char.isWhitespace && !char.isNewline
         }).isNotEmpty, Int(year) != nil, Int(year)! < 2020, Int(year)! > 1900 else {
@@ -65,6 +82,7 @@ class AddCarVC: UIViewController {
             return
         }
         
+        //receive other information about Car
         guard let image = imageView.image, let manufacturer = manufacturerTextField.text, let model = modelTextField.text, let body = bodyTextField.text,  manufacturer.filter({ (char) -> Bool in
             return !char.isWhitespace && !char.isNewline
         }).isNotEmpty, model.filter({ (char) -> Bool in
@@ -78,6 +96,7 @@ class AddCarVC: UIViewController {
             return
         }
         
+        //Save information to  class
         self.manufacturer = manufacturer
         self.model = model
         self.body = body
@@ -85,24 +104,30 @@ class AddCarVC: UIViewController {
         
         activityIndicator.startAnimating()
         
+        //save image
         guard let imageData = image.jpegData(compressionQuality: 0.2) else {return}
         
+        //get reference where to save image
         let imageRef = Storage.storage().reference().child("carImages/\(model).jpg")
         let metaData = StorageMetadata()
         metaData.contentType = "images/jpg"
         
+        //save image
         imageRef.putData(imageData, metadata: metaData) { (metadata, error) in
+            //handle errors
             if let error = error {
-                self.handleError(error: error, msg: "Unable to put data.")
+                self.handleError(error: error, msg: "Unable to put data!")
                 return
             }
             
+            //get saved image url
             imageRef.downloadURL { (url, error) in
                  if let error = error {
-                    self.handleError(error: error, msg: "Unable to donload Url.")
+                    self.handleError(error: error, msg: "Unable to download Url!")
                     }
                                
                 guard let url = url else {return}
+                //save all information about car
                 self.uploadDocument(url: url.absoluteString)
             }
             self.activityIndicator.stopAnimating()
@@ -110,14 +135,19 @@ class AddCarVC: UIViewController {
         }
     }
     
+    //Function to save information about car
     func uploadDocument(url: String) {
+        
         var docRef : DocumentReference!
-        year = (year == nil) ? 2000 : year
+        
+        //Initialise car value
         var car = Car.init(model: self.model, manufacturer: self.manufacturer, body: self.body, year: self.year, imageUrl: url, id: "")
         
+        //Get reference where to save information about car
         docRef = Firestore.firestore().collection("Cars").document()
         car.id = docRef.documentID
         
+        //Data to save in firebase
         let data = Car.modelToData(car: car)
         docRef.setData(data) { (error) in
             if let error = error {
@@ -154,5 +184,12 @@ extension AddCarVC : UINavigationControllerDelegate, UIImagePickerControllerDele
         debugPrint(error)
         self.simpleAlert(title: "Error", msg: msg)
         self.activityIndicator.stopAnimating()
+    }
+}
+
+extension AddCarVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }

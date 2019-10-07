@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//extension for conveniece: check if string is emty
+//extension for conveniece: check if string is empty
 extension String {
     var isNotEmpty: Bool {  //initialisation of computed value
         return !isEmpty

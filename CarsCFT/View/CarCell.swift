@@ -29,10 +29,14 @@ class CarCell: UICollectionViewCell {
     }
     
     //Cell deletion
+    //This function delegates deletion permission to delegate
     @IBAction func deleteItemClicked(_ sender: Any) {
         delegate.deleteCell(id: self.id)
     }
     
+    //Configure Car cell from car value
+    //This function receive delegate and implement it to Cell
+    //This function also show cars information in cell
     func configureCell (car: Car, delegate: DeleteCollectionViewCellDelegate)  {
         
         self.delegate = delegate  //initialise delegate
@@ -45,7 +49,7 @@ class CarCell: UICollectionViewCell {
         yearLbl.text = "Year: \(String(car.year))"
         
         
-        //image
+        //image loading
         if let url = URL(string: car.imageUrl) {
             let placeholder = UIImage(named: "placeholder")
             let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.1))]

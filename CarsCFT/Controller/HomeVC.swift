@@ -3,11 +3,9 @@ import Firebase
 import FirebaseFirestore
 
 class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
+    
+    //Removes car from the collection of Cars in database
     func deleteCell(id: String) {
-//        Cars.removeAll { (car) -> Bool in
-//            return car.id == id
-//        }
-        
         db.collection("Cars").document(id).delete()
     }
     
@@ -27,8 +25,10 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        db = Firestore.firestore()
-        setUpCollectionView()
+
+        
+        db = Firestore.firestore() //Reference to firebase
+        setUpCollectionView() //configures collection view
         
         
         //Add button for insertion of a new car
@@ -41,6 +41,7 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
         navigationController?.navigationBar.barTintColor = AppColors.Blue
     }
     
+    //Perform add car VC
     @objc func addCar() {
         performSegue(withIdentifier: Segues.toAddCar, sender: nil)
     }
@@ -48,6 +49,8 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
     override func viewDidAppear(_ animated: Bool) {
         setCarsListener()
     }
+    
+    //Function to configure collection view
     func setUpCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -65,12 +68,16 @@ class HomeVC: UIViewController, DeleteCollectionViewCellDelegate {
     //Listener for database changes
     func setCarsListener() {
         
+        //initialise a listener to show live updates in firebase
         listener = db.collection("Cars").addSnapshotListener({ (query, error) in
+            
+            //handle errors
             if let error = error {
                 debugPrint(error.localizedDescription)
                 return
             }
             
+            //handle all document changes in firebase
             query?.documentChanges.forEach({ (change) in
                 let data = change.document.data()
                 let car = Car.init(data: data)
