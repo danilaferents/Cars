@@ -61,6 +61,7 @@ class AddCarVC: UIViewController {
         }).isNotEmpty, Int(year) != nil, Int(year)! < 2020, Int(year)! > 1900 else {
             simpleAlert(title: "Error!", msg: "Enter a valid year!")
             self.activityIndicator.stopAnimating()
+            addCarBtn.isEnabled = true
             return
         }
         
